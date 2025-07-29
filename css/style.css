@@ -176,7 +176,7 @@ nav a:hover {
 .menu-toggle .bar {
     width: 25px;
     height: 3px;
-    background: var(--neutral-dark);
+    background: var(--primary-blue);
     border-radius: 2px;
     transition: var(--transition);
 }
@@ -271,6 +271,7 @@ nav a:hover {
     opacity: 0;
     transform: translateX(30px);
     animation: fadeInRight 1s ease 0.3s forwards;
+    margin-top: 30px;
 }
 
 .foto-inicio img {
@@ -585,10 +586,29 @@ footer {
 }
 
 .footer-icons img {
-    width: 24px;
-    height: 24px;
     filter: brightness(0) invert(1);
 }
+
+.footer-icons a[href*="wa.me"] img {
+    width: 28px;
+    height: 28px;
+}
+
+.footer-icons a[href*="instagram.com"] img {
+    width: 30px;
+    height: 30px;
+}
+
+.footer-icons a[href*="linkedin.com"] img {
+    width: 28px;
+    height: 28px;
+}
+
+.footer-icons a[href*="behance.net"] img {
+    width: 33px;
+    height: 33px;
+}
+
 
 /* Animações */
 @keyframes fadeInUp {
@@ -616,8 +636,8 @@ footer {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 80%;
-        height: 100vh;
+        width: 40%;
+        height: 50vh;
         background: var(--white);
         flex-direction: column;
         justify-content: flex-start;
@@ -625,6 +645,7 @@ footer {
         box-shadow: var(--shadow-heavy);
         transition: var(--transition);
         z-index: 999;
+        border-radius: 10px;
     }
     
     nav.active {
@@ -658,6 +679,7 @@ footer {
     .menu-toggle {
         display: flex;
         order: 3;
+          z-index: 1001;
     }
     
     .menu-toggle.active .bar:nth-child(1) {
@@ -671,6 +693,10 @@ footer {
     .menu-toggle.active .bar:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
     }
+
+    .menu-toggle.active .bar {
+    background: var(--primary-blue); /* mantém azul no X */
+}
     
     .secao-inicio {
         flex-direction: column;
