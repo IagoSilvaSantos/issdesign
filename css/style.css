@@ -636,7 +636,7 @@ footer {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 40%;
+        width: 50%;
         height: 50vh;
         background: var(--white);
         flex-direction: column;
