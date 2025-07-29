@@ -1,0 +1,821 @@
+/* Importando fontes modernas do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+/* Reset e configurações globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: #343a40;
+    background: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Variáveis CSS para cores modernas */
+:root {
+    --primary-blue: #007bff;
+    --primary-blue-dark: #0056b3;
+    --accent-green: #28a745;
+    --accent-green-dark: #1e7e34;
+    --neutral-light: #f8f9fa;
+    --neutral-medium: #6c757d;
+    --neutral-dark: #343a40;
+    --white: #ffffff;
+    --black: #000000;
+    --gradient-primary: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    --gradient-accent: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.2);
+    --border-radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--neutral-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-blue-dark);
+}
+
+/* Header moderno com glassmorphism */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.logo img {
+    height: 50px;
+    transition: var(--transition);
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+/* Navegação moderna */
+nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+nav a {
+    color: var(--neutral-dark);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    transition: var(--transition);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-blue);
+    transition: var(--transition);
+}
+
+nav a:hover::after,
+nav a.active::after {
+    width: 100%;
+}
+
+nav a:hover {
+    color: var(--primary-blue);
+}
+
+/* Botão WhatsApp moderno */
+.btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--gradient-accent);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-light);
+    transition: var(--transition);
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-whatsapp img {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 3px;
+}
+
+/* Menu mobile */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background: var(--neutral-dark);
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+/* Seção Início - Hero moderna */
+.secao-inicio {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 2rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+    gap: 2rem;
+}
+
+.secao-inicio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23007bff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+}
+
+.texto-inicio {
+    flex: 1;
+    max-width: 600px;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease forwards;
+}
+
+.texto-inicio h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--neutral-dark);
+}
+
+.texto-inicio .destaque {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.texto-inicio p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--neutral-medium);
+}
+
+.texto-inicio p span {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.btn-servicos {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--gradient-primary);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+}
+
+.btn-servicos:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.foto-inicio {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 2;
+    opacity: 0;
+    transform: translateX(30px);
+    animation: fadeInRight 1s ease 0.3s forwards;
+}
+
+.foto-inicio img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-heavy);
+    transition: var(--transition);
+}
+
+.foto-inicio img:hover {
+    transform: scale(1.02);
+}
+
+/* Seção Serviços moderna */
+.secao-servicos {
+    padding: 5rem 2rem;
+    background: var(--white);
+    position: relative;
+}
+
+.conteudo-servicos {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.imagem-servicos {
+    position: relative;
+}
+
+.imagem-servicos img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+}
+
+.texto-servicos {
+    padding: 2rem;
+}
+
+.texto-servicos h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--neutral-dark);
+}
+
+.texto-servicos ul {
+    list-style: none;
+    background: var(--neutral-light);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+}
+
+.texto-servicos .titulo-servicos {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-blue);
+}
+
+.texto-servicos li {
+    padding: 0.75rem 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--neutral-dark);
+    border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+    transition: var(--transition);
+}
+
+.texto-servicos li:hover {
+    color: var(--primary-blue);
+    padding-left: 1rem;
+}
+
+.texto-servicos li:last-child {
+    border-bottom: none;
+}
+
+/* Seção Galeria moderna */
+.secao-galeria {
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, var(--neutral-dark) 0%, #495057 100%);
+    color: var(--white);
+}
+
+.secao-galeria h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--white);
+}
+
+.galeria-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carrossel-galeria {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 2rem;
+    height: 100%;
+    align-items: center;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.carrossel-galeria::-webkit-scrollbar {
+    display: none;
+}
+
+.carrossel-galeria img {
+    height: 500px;
+    width: auto;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-heavy);
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.carrossel-galeria img:hover {
+    transform: scale(1.05);
+}
+
+.carrossel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primary-blue);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+    z-index: 10;
+}
+
+.carrossel-btn:hover {
+    background: var(--white);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carrossel-btn-prev {
+    left: 1rem;
+}
+
+.carrossel-btn-next {
+    right: 1rem;
+}
+
+.carrossel-indicadores {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.indicador {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.indicador.ativo {
+    background: var(--white);
+    transform: scale(1.2);
+}
+
+/* Seção Contato moderna */
+.secao-contato {
+    padding: 5rem 2rem;
+    background: var(--neutral-light);
+}
+
+.secao-contato h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--neutral-dark);
+}
+
+.secao-contato form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.secao-contato input,
+.secao-contato textarea {
+    padding: 1rem;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    background: var(--white);
+    font-size: 1rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow-light);
+}
+
+.secao-contato input:focus,
+.secao-contato textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.secao-contato textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.secao-contato button {
+    padding: 1rem 2rem;
+    background: var(--gradient-primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-medium);
+}
+
+.secao-contato button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.secao-contato button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Footer moderno */
+footer {
+    background: var(--neutral-dark);
+    color: var(--white);
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.footer-icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.footer-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.footer-icons a:hover {
+    background: var(--primary-blue);
+    transform: translateY(-3px);
+}
+
+.footer-icons img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+/* Animações */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 1rem;
+    }
+    
+    nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 5rem 2rem 2rem;
+        box-shadow: var(--shadow-heavy);
+        transition: var(--transition);
+        z-index: 999;
+    }
+    
+    nav.active {
+        display: flex;
+        right: 0;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    nav a {
+        font-size: 1.2rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--neutral-light);
+        width: 100%;
+        text-align: left;
+    }
+    
+    .btn-whatsapp.mobile-only {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin-top: 1rem;
+        padding: 1rem 2rem;
+    }
+    
+    .menu-toggle {
+        display: flex;
+        order: 3;
+    }
+    
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+    
+    .secao-inicio {
+        flex-direction: column;
+        text-align: center;
+        padding: 100px 1rem 2rem;
+        gap: 3rem;
+    }
+    
+    .texto-inicio {
+        max-width: 100%;
+    }
+    
+    .texto-inicio h1 {
+        font-size: 2.5rem;
+    }
+    
+    .foto-inicio {
+        order: -1;
+        max-width: 300px;
+    }
+    
+    .conteudo-servicos {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .galeria-container {
+        height: 400px;
+    }
+    
+    .carrossel-galeria img {
+        height: 300px;
+    }
+    
+    .carrossel-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .secao-contato {
+        padding: 3rem 1rem;
+    }
+    
+    .secao-contato h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .texto-inicio h1 {
+        font-size: 2rem;
+    }
+    
+    .secao-galeria h2,
+    .secao-contato h2 {
+        font-size: 1.8rem;
+    }
+    
+    .carrossel-btn-prev {
+        left: 0.5rem;
+    }
+    
+    .carrossel-btn-next {
+        right: 0.5rem;
+    }
+}
+
+
+/* Utilitários */
+.mobile-only {
+  display: none !important;
+}
+
+.desktop-only {
+  display: block !important;
+}
+
+@media (max-width: 767px) {
+  .mobile-only {
+    display: block !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: block !important;
+  }
+}
+/* Estados de hover e focus aprimorados */
+button:focus,
+input:focus,
+textarea:focus,
+a:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* Melhorias de acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
+.btn-whatsapp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-whatsapp img {
+    margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+}
+
+
+
+
+.secao-contato button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem; /* Espaçamento entre o texto e o ícone */
+}
+
+
+
+
+.foto-inicio {
+    background-color: black;
+    padding: 0px; /* Adiciona um pouco de padding para a box preta */
+    border-radius: var(--border-radius);
+}
+
+
