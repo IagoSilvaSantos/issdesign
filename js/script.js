@@ -136,7 +136,12 @@ document.addEventListener("DOMContentLoaded", () => {
       "Flor_Carrossel_16.png", "Vinho_Carrossel_17.png", "Tatto_Carrossel_18.png",
       "Sushi_Carrossel_19.png", "Spider_Carrossel_20.png", "Codinome_Carrossel_21.png",
       "Death_Carrossel_22.png", "Gear_Carrossel_23.png", "Cardapio_Carrossel_24.png",
-      "Supergirl_Carrossel_25.png", "God_Carrossel_26.png", "Ghost_Carrossel_27.png"
+      "Supergirl_Carrossel_25.png", "God_Carrossel_26.png", "Ghost_Carrossel_27.png",
+      "Ori-Post_28.png","Panfleto_viagens.png","Projeto_Guarana_Antartica.png",
+      "Projeto_Hamburguer_na_Espada.png","Hamburgueria_Samurai.png","Hamburguer_Halloween.png",
+      "Monter_Ovni.png","Estudio_Maquiagem.png","Folheto_Moda.png","Vetor_placa_Mae.png",
+      "Racoes_Origens.png","Snake_Metal_Gear .png","Hidratante paixao_02.png","Godizilla_refrigerante.png",
+      "Creatina_God_of_War.png"
     ];
 
     let currentIndex = 0;
