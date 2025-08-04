@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Ori-Post_28.webp","Panfleto_viagens.webp","Projeto_Guarana_Antartica.webp",
       "Projeto_Hamburguer_na_Espada.webp","Hamburgueria_Samurai.webp","Hamburguer_Halloween.webp",
       "Monter_Ovni.webp","Estudio_Maquiagem.webp","Folheto_Moda.webp","Vetor_placa_Mae.webp",
-      "Racoes_Origens.webp","Snake_Metal_Gear.webp","Hidratante paixao_02.webp","Godizilla_refrigerante.webp",
+      "Racoes_Origens.webp","Snake_Metal_Gear.webp","Hidratante_paixao_02.webp","Godizilla_refrigerante.webp",
       "Creatina_God_of_War.webp"
     ];
 
@@ -166,7 +166,7 @@ imagensGaleria.forEach((img, index) => {
   const picture = document.createElement("picture");
 
   const sourceWebp = document.createElement("source");
-  sourceWebp.srcset = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img.replace('.png', '.webp')}`;
+  sourceWebp.srcset = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img} 1x`;
   sourceWebp.type = "image/webp";
 
   const imgFallback = document.createElement("img");
