@@ -323,6 +323,7 @@ nav a:hover {
     font-weight: 700;
     margin-bottom: 2rem;
     color: var(--neutral-dark);
+    text-align: center;
 }
 
 .texto-servicos ul {
@@ -595,13 +596,13 @@ footer {
 }
 
 .footer-icons a[href*="instagram.com"] img {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
 }
 
 .footer-icons a[href*="linkedin.com"] img {
-    width: 28px;
-    height: 28px;
+    width: 29px;
+    height: 29px;
 }
 
 .footer-icons a[href*="behance.net"] img {
