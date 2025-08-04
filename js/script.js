@@ -128,20 +128,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (carrossel) {
     const imagensGaleria = [
-      "Gta_Carrossel_1.png", "Gustavo_Carrossel_2.png", "Cachorro_Carrossel_3.png",
-      "Dragao_Carrossel_4.png", "Xbox_Carrossel_5.png", "Acai_Carrossel_6.png",
-      "Burguer_Carrossel_7.png", "Mary_Carrossel_8.png", "Pizza_Carrossel_9.png",
-      "Creed_Carrossel_10.png", "Hamburguer_Carrossel_11.png", "Paixao_Carrossel_12.png",
-      "Baly_Carrossel_13.png", "Colgate_Carrossel_14.png", "Principia_Carrossel_15.png",
-      "Flor_Carrossel_16.png", "Vinho_Carrossel_17.png", "Tatto_Carrossel_18.png",
-      "Sushi_Carrossel_19.png", "Spider_Carrossel_20.png", "Codinome_Carrossel_21.png",
-      "Death_Carrossel_22.png", "Gear_Carrossel_23.png", "Cardapio_Carrossel_24.png",
-      "Supergirl_Carrossel_25.png", "God_Carrossel_26.png", "Ghost_Carrossel_27.png",
-      "Ori-Post_28.png","Panfleto_viagens.png","Projeto_Guarana_Antartica.png",
-      "Projeto_Hamburguer_na_Espada.png","Hamburgueria_Samurai.png","Hamburguer_Halloween.png",
-      "Monter_Ovni.png","Estudio_Maquiagem.png","Folheto_Moda.png","Vetor_placa_Mae.png",
-      "Racoes_Origens.png","Snake_Metal_Gear .png","Hidratante paixao_02.png","Godizilla_refrigerante.png",
-      "Creatina_God_of_War.png"
+      "Gta_Carrossel_1.webp", "Gustavo_Carrossel_2.webp", "Cachorro_Carrossel_3.webp",
+      "Dragao_Carrossel_4.webp", "Xbox_Carrossel_5.webp", "Acai_Carrossel_6.webp",
+      "Burguer_Carrossel_7.webp", "Mary_Carrossel_8.webp", "Pizza_Carrossel_9.webp",
+      "Creed_Carrossel_10.webp", "Hamburguer_Carrossel_11.webp", "Paixao_Carrossel_12.webp",
+      "Baly_Carrossel_13.webp", "Colgate_Carrossel_14.webp", "Principia_Carrossel_15.webp",
+      "Flor_Carrossel_16.webp", "Vinho_Carrossel_17.webp", "Tatto_Carrossel_18.webp",
+      "Sushi_Carrossel_19.webp", "Spider_Carrossel_20.webp", "Codinome_Carrossel_21.webp",
+      "Death_Carrossel_22.webp", "Gear_Carrossel_23.webp", "Cardapio_Carrossel_24.webp",
+      "Supergirl_Carrossel_25.webp", "God_Carrossel_26.webp", "Ghost_Carrossel_27.webp",
+      "Ori-Post_28.webp","Panfleto_viagens.webp","Projeto_Guarana_Antartica.webp",
+      "Projeto_Hamburguer_na_Espada.webp","Hamburgueria_Samurai.webp","Hamburguer_Halloween.webp",
+      "Monter_Ovni.webp","Estudio_Maquiagem.webp","Folheto_Moda.webp","Vetor_placa_Mae.webp",
+      "Racoes_Origens.webp","Snake_Metal_Gear.webp","Hidratante paixao_02.webp","Godizilla_refrigerante.webp",
+      "Creatina_God_of_War.webp"
     ];
 
     let currentIndex = 0;
@@ -162,16 +162,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Carregar imagens com lazy loading
-    imagensGaleria.forEach((img, index) => {
-      const imagem = document.createElement("img");
-      imagem.src = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img}`;
-      imagem.alt = `Projeto ${index + 1}: ${img.replace(/_/g, " ").replace(".png", "")}`;
-      imagem.loading = "lazy";
-      imagem.setAttribute("role", "tabpanel");
-      imagem.setAttribute("aria-label", `Projeto ${index + 1}`);
-      
-      carrossel.appendChild(imagem);
-    });
+imagensGaleria.forEach((img, index) => {
+  const picture = document.createElement("picture");
+
+  const sourceWebp = document.createElement("source");
+  sourceWebp.srcset = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img.replace('.png', '.webp')}`;
+  sourceWebp.type = "image/webp";
+
+  const imgFallback = document.createElement("img");
+  imgFallback.src = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img}`;
+  imgFallback.alt = `Projeto ${index + 1}: ${img.replace(/_/g, " ").replace(".png", "")}`;
+  imgFallback.loading = "lazy";
+  imgFallback.setAttribute("role", "tabpanel");
+  imgFallback.setAttribute("aria-label", `Projeto ${index + 1}`);
+
+  picture.appendChild(sourceWebp);
+  picture.appendChild(imgFallback);
+  carrossel.appendChild(picture);
+ });
 
     function atualizarIndicadores() {
       const indicadores = indicadoresContainer.querySelectorAll('.indicador');
