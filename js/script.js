@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Projeto_Hamburguer_na_Espada.webp","Hamburgueria_Samurai.webp","Hamburguer_Halloween.webp",
       "Monter_Ovni.webp","Estudio_Maquiagem.webp","Folheto_Moda.webp","Vetor_placa_Mae.webp",
       "Racoes_Origens.webp","Snake_Metal_Gear.webp","Hidratante_paixao_02.webp","Godizilla_refrigerante.webp",
-      "Creatina_God_of_War.webp"
+      "Creatina_God_of_War.webp","Cartao_visita.webp"
     ];
 
     let currentIndex = 0;
