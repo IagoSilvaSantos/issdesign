@@ -120,6 +120,64 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Funcionalidade de troca de imagem na seção de serviços - CORRIGIDO
+  const serviceImage = document.getElementById('service-image');
+  const serviceLinks = document.querySelectorAll('.service-link');
+
+  if (serviceImage && serviceLinks.length > 0) {
+    serviceLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const imageData = link.getAttribute('data-image');
+        const targetSection = link.getAttribute('href');
+
+        if (targetSection === '#galeria') {
+          // Se for o link 'E muito mais...', rolar para a seção Galeria
+          const galeriaSection = document.getElementById('galeria');
+          if (galeriaSection) {
+            const offsetTop = galeriaSection.offsetTop - 80; // Compensar altura do header
+            window.scrollTo({
+              top: offsetTop,
+              behavior: prefersReducedMotion ? 'auto' : 'smooth'
+            });
+          }
+        } else if (imageData) {
+          // Verificar se a imagem existe antes de tentar carregá-la
+          const newImageSrc = `images/Secao_02_Servicos/${imageData}`;
+          const testImage = new Image();
+          
+          testImage.onload = function() {
+            // Imagem carregada com sucesso, proceder com a troca
+            serviceImage.classList.add('fade-out');
+
+            // Usar setTimeout em vez de transitionend para maior confiabilidade
+            setTimeout(() => {
+              serviceImage.src = newImageSrc;
+              serviceImage.alt = `Exemplo de ${imageData.replace('.webp', '').replace('_', ' ')}`;
+              
+              // Remover a classe fade-out e adicionar fade-in para a nova imagem
+              serviceImage.classList.remove('fade-out');
+              serviceImage.classList.add('fade-in');
+
+              // Remover a classe fade-in após a animação
+              setTimeout(() => {
+                serviceImage.classList.remove('fade-in');
+              }, 500);
+            }, 250); // Metade do tempo da transição CSS
+          };
+          
+          testImage.onerror = function() {
+            console.warn(`Imagem não encontrada: ${newImageSrc}`);
+            // Manter a imagem atual se a nova não for encontrada
+          };
+          
+          testImage.src = newImageSrc;
+        }
+      });
+    });
+  }
+
   // Carrossel Galeria aprimorado
   const carrossel = document.querySelector(".carrossel-galeria");
   const btnPrev = document.getElementById("btn-prev");
@@ -141,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Projeto_Hamburguer_na_Espada.webp","Hamburgueria_Samurai.webp","Hamburguer_Halloween.webp",
       "Monter_Ovni.webp","Estudio_Maquiagem.webp","Folheto_Moda.webp","Vetor_placa_Mae.webp",
       "Racoes_Origens.webp","Snake_Metal_Gear.webp","Hidratante_paixao_02.webp","Godizilla_refrigerante.webp",
-      "Creatina_God_of_War.webp","Cartao_visita.webp"
+      "Creatina_God_of_War.webp","Cartao_visita.webp","Id_Visual.webp"
     ];
 
     let currentIndex = 0;
@@ -162,24 +220,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Carregar imagens com lazy loading
-imagensGaleria.forEach((img, index) => {
-  const picture = document.createElement("picture");
+    imagensGaleria.forEach((img, index) => {
+      const picture = document.createElement("picture");
 
-  const sourceWebp = document.createElement("source");
-  sourceWebp.srcset = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img} 1x`;
-  sourceWebp.type = "image/webp";
+      const sourceWebp = document.createElement("source");
+      sourceWebp.srcset = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img} 1x`;
+      sourceWebp.type = "image/webp";
 
-  const imgFallback = document.createElement("img");
-  imgFallback.src = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img}`;
-  imgFallback.alt = `Projeto ${index + 1}: ${img.replace(/_/g, " ").replace(".png", "")}`;
-  imgFallback.loading = "lazy";
-  imgFallback.setAttribute("role", "tabpanel");
-  imgFallback.setAttribute("aria-label", `Projeto ${index + 1}`);
+      const imgFallback = document.createElement("img");
+      imgFallback.src = `images/Secao_03_Galeria/Imagens_Carrosel_animado/${img}`;
+      imgFallback.alt = `Projeto ${index + 1}: ${img.replace(/_/g, " ").replace(".webp", "")}`;
+      imgFallback.loading = "lazy";
+      imgFallback.setAttribute("role", "tabpanel");
+      imgFallback.setAttribute("aria-label", `Projeto ${index + 1}`);
 
-  picture.appendChild(sourceWebp);
-  picture.appendChild(imgFallback);
-  carrossel.appendChild(picture);
- });
+      picture.appendChild(sourceWebp);
+      picture.appendChild(imgFallback);
+      carrossel.appendChild(picture);
+    });
 
     function atualizarIndicadores() {
       const indicadores = indicadoresContainer.querySelectorAll('.indicador');

@@ -846,3 +846,53 @@ a:focus {
 }
 
 
+
+
+/* Animação de transição para a imagem de serviços - MELHORADA */
+.secao-servicos .imagem-servicos img {
+  transition: opacity 0.25s ease-in-out;
+  opacity: 1;
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.secao-servicos .imagem-servicos img.fade-out {
+  opacity: 0;
+}
+
+.secao-servicos .imagem-servicos img.fade-in {
+  animation: fadeInSmooth 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeInSmooth {
+  from { 
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Melhorar a responsividade dos links de serviços */
+.texto-servicos .service-link {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.texto-servicos .service-link:hover {
+  color: var(--primary-blue);
+  transform: translateX(5px);
+}
+
+.texto-servicos .service-link:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+
