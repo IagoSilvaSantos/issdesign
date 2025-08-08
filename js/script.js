@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Funcionalidade de troca de imagem na seção de serviços - CORRIGIDO
+  // Funcionalidade de troca de imagem na seção de serviços - DESKTOP
   const serviceImage = document.getElementById('service-image');
   const serviceLinks = document.querySelectorAll('.service-link');
 
@@ -149,22 +149,16 @@ document.addEventListener("DOMContentLoaded", () => {
           
           testImage.onload = function() {
             // Imagem carregada com sucesso, proceder com a troca
-            serviceImage.classList.add('fade-out');
+            serviceImage.classList.add('changing');
 
             // Usar setTimeout em vez de transitionend para maior confiabilidade
             setTimeout(() => {
               serviceImage.src = newImageSrc;
               serviceImage.alt = `Exemplo de ${imageData.replace('.webp', '').replace('_', ' ')}`;
               
-              // Remover a classe fade-out e adicionar fade-in para a nova imagem
-              serviceImage.classList.remove('fade-out');
-              serviceImage.classList.add('fade-in');
-
-              // Remover a classe fade-in após a animação
-              setTimeout(() => {
-                serviceImage.classList.remove('fade-in');
-              }, 500);
-            }, 250); // Metade do tempo da transição CSS
+              // Remover a classe changing
+              serviceImage.classList.remove('changing');
+            }, 150); // Metade do tempo da transição CSS
           };
           
           testImage.onerror = function() {
@@ -173,6 +167,55 @@ document.addEventListener("DOMContentLoaded", () => {
           };
           
           testImage.src = newImageSrc;
+        }
+      });
+    });
+  }
+
+  // Funcionalidade dos botões de serviços MOBILE
+  const serviceBtns = document.querySelectorAll('.service-btn');
+
+  if (serviceBtns.length > 0 && serviceImage) {
+    serviceBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Verificar se é o botão "Ver Galeria"
+        const action = btn.getAttribute('data-action');
+        if (action === 'galeria') {
+          const galeriaSection = document.getElementById('galeria');
+          if (galeriaSection) {
+            const offsetTop = galeriaSection.offsetTop - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: prefersReducedMotion ? 'auto' : 'smooth'
+            });
+          }
+          return;
+        }
+        
+        // Remover classe active de todos os botões
+        serviceBtns.forEach(b => b.classList.remove('active'));
+        
+        // Adicionar classe active ao botão clicado
+        btn.classList.add('active');
+        
+        // Obter a imagem correspondente
+        const imageData = btn.getAttribute('data-image');
+        
+        if (imageData) {
+          // Adicionar efeito de transição
+          serviceImage.classList.add('changing');
+          
+          // Trocar a imagem após um pequeno delay para o efeito visual
+          setTimeout(() => {
+            const newImageSrc = `images/Secao_02_Servicos/${imageData}`;
+            serviceImage.src = newImageSrc;
+            serviceImage.alt = `Exemplo de ${imageData.replace('.webp', '').replace('_', ' ')}`;
+            
+            // Remover o efeito de transição
+            serviceImage.classList.remove('changing');
+          }, 150);
         }
       });
     });
@@ -250,11 +293,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function irParaImagem(index) {
       currentIndex = index;
-      const scrollAmount = carrossel.clientWidth * index * 0.8;
-      carrossel.scrollTo({
-        left: scrollAmount,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth'
-      });
+      
+      // Detectar se é mobile
+      const isMobile = window.innerWidth <= 768;
+      
+      if (isMobile) {
+        // Para mobile: scroll para centralizar cada imagem
+        const images = carrossel.querySelectorAll('img');
+        if (images[index]) {
+          const imageWidth = images[index].offsetWidth;
+          const containerWidth = carrossel.offsetWidth;
+          const gap = 16; // 1rem convertido para px
+          
+          // Calcular posição para centralizar a imagem
+          const scrollPosition = (imageWidth + gap) * index - (containerWidth - imageWidth) / 2;
+          
+          carrossel.scrollTo({
+            left: Math.max(0, scrollPosition),
+            behavior: prefersReducedMotion ? 'auto' : 'smooth'
+          });
+        }
+      } else {
+        // Para desktop: comportamento original
+        const scrollAmount = carrossel.clientWidth * index * 0.8;
+        carrossel.scrollTo({
+          left: scrollAmount,
+          behavior: prefersReducedMotion ? 'auto' : 'smooth'
+        });
+      }
+      
       atualizarIndicadores();
       pararScrollAutomatico();
       setTimeout(retomarScrollAutomatico, 2000);
@@ -342,6 +409,38 @@ document.addEventListener("DOMContentLoaded", () => {
       isDragging = false;
       setTimeout(retomarScrollAutomatico, 2000);
     }, { passive: true });
+
+    // Detectar scroll manual e atualizar indicadores
+    let scrollTimeout;
+    carrossel.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        // Detectar qual imagem está mais centralizada
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          const images = carrossel.querySelectorAll('img');
+          const containerCenter = carrossel.scrollLeft + carrossel.offsetWidth / 2;
+          
+          let closestIndex = 0;
+          let closestDistance = Infinity;
+          
+          images.forEach((img, index) => {
+            const imgCenter = img.offsetLeft + img.offsetWidth / 2;
+            const distance = Math.abs(containerCenter - imgCenter);
+            
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestIndex = index;
+            }
+          });
+          
+          if (closestIndex !== currentIndex) {
+            currentIndex = closestIndex;
+            atualizarIndicadores();
+          }
+        }
+      }, 100);
+    });
 
     // Iniciar scroll automático
     iniciarScrollAutomatico();
@@ -464,27 +563,18 @@ document.addEventListener("DOMContentLoaded", () => {
             </svg>
             Enviado com sucesso!
           `;
-          submitButton.style.background = 'var(--accent-green)';
           
-          // Limpar formulário após 2 segundos
+          // Resetar formulário após 2 segundos
           setTimeout(() => {
             form.reset();
-            submitButton.innerHTML = originalButtonText;
-            submitButton.style.background = '';
             submitButton.disabled = false;
-            
-            // Remover mensagens de erro
-            form.querySelectorAll('.error-message').forEach(msg => msg.remove());
-            inputs.forEach(input => {
-              input.classList.remove('error');
-              input.style.borderColor = '';
-            });
+            submitButton.innerHTML = originalButtonText;
           }, 2000);
         } else {
-          throw new Error('Erro na resposta do servidor');
+          throw new Error('Erro no envio');
         }
       } catch (error) {
-        console.error("Erro ao enviar o formulário:", error);
+        console.error('Erro ao enviar formulário:', error);
         
         // Estado de erro
         submitButton.innerHTML = `
@@ -493,68 +583,41 @@ document.addEventListener("DOMContentLoaded", () => {
             <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"/>
             <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
           </svg>
-          Erro ao enviar
+          Erro no envio
         `;
-        submitButton.style.background = '#dc3545';
         
+        // Restaurar botão após 3 segundos
         setTimeout(() => {
-          submitButton.innerHTML = originalButtonText;
-          submitButton.style.background = '';
           submitButton.disabled = false;
+          submitButton.innerHTML = originalButtonText;
         }, 3000);
       }
     });
   }
 
-  // Máscara de telefone aprimorada
+  // Máscara para telefone
   const telefoneInput = document.getElementById("telefone");
   if (telefoneInput) {
-    telefoneInput.addEventListener("input", function (e) {
-      let value = e.target.value.replace(/\D/g, '');
-      let formattedValue = '';
+    telefoneInput.addEventListener("input", (e) => {
+      let value = e.target.value.replace(/\D/g, "");
       
-      if (value.length > 0) {
-        if (value.length <= 2) {
-          formattedValue = `(${value}`;
-        } else if (value.length <= 7) {
-          formattedValue = `(${value.slice(0, 2)})${value.slice(2)}`;
-        } else {
-          formattedValue = `(${value.slice(0, 2)})${value.slice(2, 7)}-${value.slice(7, 11)}`;
+      if (value.length <= 11) {
+        value = value.replace(/(\d{2})(\d{5})(\d{4})/, "($1)$2-$3");
+        if (value.length < 14) {
+          value = value.replace(/(\d{2})(\d{4})(\d{4})/, "($1)$2-$3");
         }
       }
       
-      e.target.value = formattedValue;
+      e.target.value = value;
     });
   }
 
-  // Header scroll effect
-  const header = document.getElementById('header');
-  let lastScrollY = window.scrollY;
-
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    
-    if (currentScrollY > 100) {
-      header.style.background = 'rgba(255, 255, 255, 0.98)';
-      header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-      header.style.background = 'rgba(255, 255, 255, 0.95)';
-      header.style.boxShadow = 'none';
-    }
-    
-    lastScrollY = currentScrollY;
-  });
-
-  // Adicionar estilos para animação de loading
+  // Adicionar estilos CSS para animação de spin
   const style = document.createElement('style');
   style.textContent = `
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
-    }
-    .error-message {
-      display: block;
-      margin-top: 0.25rem;
     }
   `;
   document.head.appendChild(style);
