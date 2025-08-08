@@ -701,7 +701,8 @@ footer {
     .menu-toggle {
         display: flex;
         order: 3;
-          z-index: 1001;
+        z-index: 1001;
+        margin-right: 16px;
     }
     
     .menu-toggle.active .bar:nth-child(1) {
