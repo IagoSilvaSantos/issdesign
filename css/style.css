@@ -644,6 +644,10 @@ footer {
     .header-container {
         padding: 0;
     }
+
+    .secao-servicos {
+    padding-top: 0; /* antes era 5rem, agora fica bem menor */
+    }
     
     .logo {
         margin-left: 16px;
